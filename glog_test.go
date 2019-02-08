@@ -28,7 +28,7 @@ import (
 	"time"
 )
 
-// Test that shortHostname works as advertised.
+// TestShortHostname checks a case when that shortHostname works as advertised.
 func TestShortHostname(t *testing.T) {
 	for hostname, expect := range map[string]string{
 		"":                "",
@@ -85,7 +85,7 @@ func setFlags() {
 	logging.toStderr = false
 }
 
-// Test that Info works as advertised.
+// TestInfo tests that Info works as advertised.
 func TestInfo(t *testing.T) {
 	setFlags()
 	defer logging.swap(logging.newBuffers())
@@ -146,7 +146,7 @@ func init() {
 	CopyStandardLogTo("INFO")
 }
 
-// Test that CopyStandardLogTo panics on bad input.
+// TestCopyStandardLogToPanic tests that CopyStandardLogTo panics on bad input.
 func TestCopyStandardLogToPanic(t *testing.T) {
 	defer func() {
 		if s, ok := recover().(string); !ok || !strings.Contains(s, "LOG") {
@@ -156,7 +156,7 @@ func TestCopyStandardLogToPanic(t *testing.T) {
 	CopyStandardLogTo("LOG")
 }
 
-// Test that using the standard log package logs to INFO.
+// TestStandardLog checks a case when that using the standard log package logs to INFO.
 func TestStandardLog(t *testing.T) {
 	setFlags()
 	defer logging.swap(logging.newBuffers())
@@ -169,7 +169,7 @@ func TestStandardLog(t *testing.T) {
 	}
 }
 
-// Test that the header has the correct format.
+// TestHeader tests that the header has the correct format.
 func TestHeader(t *testing.T) {
 	setFlags()
 	defer logging.swap(logging.newBuffers())
@@ -193,7 +193,7 @@ func TestHeader(t *testing.T) {
 	}
 }
 
-// Test that an Error log goes to Warning and Info.
+// TestError tests that an Error log goes to Warning and Info.
 // Even in the Info log, the source character will be E, so the data should
 // all be identical.
 func TestError(t *testing.T) {
@@ -215,7 +215,7 @@ func TestError(t *testing.T) {
 	}
 }
 
-// Test that a Warning log goes to Info.
+// TestWarning tests that a Warning log goes to Info.
 // Even in the Info log, the source character will be W, so the data should
 // all be identical.
 func TestWarning(t *testing.T) {
@@ -234,7 +234,7 @@ func TestWarning(t *testing.T) {
 	}
 }
 
-// Test that a V log goes to Info.
+// TestV tests that a V log goes to Info.
 func TestV(t *testing.T) {
 	setFlags()
 	defer logging.swap(logging.newBuffers())
@@ -249,7 +249,7 @@ func TestV(t *testing.T) {
 	}
 }
 
-// Test that a vmodule enables a log in this file.
+// TestVmoduleOn tests that a vmodule enables a log in this file.
 func TestVmoduleOn(t *testing.T) {
 	setFlags()
 	defer logging.swap(logging.newBuffers())
@@ -273,7 +273,7 @@ func TestVmoduleOn(t *testing.T) {
 	}
 }
 
-// Test that a vmodule of another file does not enable a log in this file.
+// TestVmoduleOff tests that a vmodule of another file does not enable a log in this file.
 func TestVmoduleOff(t *testing.T) {
 	setFlags()
 	defer logging.swap(logging.newBuffers())
@@ -308,7 +308,7 @@ var vGlobs = map[string]bool{
 	"?[abc]?_*t=2": false,
 }
 
-// Test that vmodule globbing works as advertised.
+// testVmoduleGlob tests that vmodule globbing works as advertised.
 func testVmoduleGlob(pat string, match bool, t *testing.T) {
 	setFlags()
 	defer logging.swap(logging.newBuffers())
@@ -319,7 +319,7 @@ func testVmoduleGlob(pat string, match bool, t *testing.T) {
 	}
 }
 
-// Test that a vmodule globbing works as advertised.
+// TestVmoduleGlob tests that a vmodule globbing works as advertised.
 func TestVmoduleGlob(t *testing.T) {
 	for glob, match := range vGlobs {
 		testVmoduleGlob(glob, match, t)
